@@ -1,0 +1,107 @@
+<div class="pingall">
+    <div class="pingmain">
+        <!-- NAVBAR -->
+        <div class="ui attached stackable borderless menu">
+            <div class="ui container">
+                <div>
+                    <a href="#/">
+                        <img class="ui small image" src="/../assets/img/logo.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- END OF NAVBAR -->
+
+        <div class="ui grid container" style="margin-top: 8%;">
+            <!-- WELCOME -->
+            <div class="ui ten wide column">
+                <h1>Welcome to Pinggu!</h1>
+                <h4>
+                    Let the world smile with your pings.<br>
+                    Connect with other people — Create, Share, and Watch memories that may occur any moment.
+                </h4>
+            </div>
+            <!-- END OF WELCOME -->
+
+            <!-- LOG IN / SIGN UP -->
+            <div class="ui middle aligned center aligned six wide column">
+                <!-- LOG IN -->
+                <h2 class="ui purple image header">
+                    <div class="content">
+                        Log-in to your account
+                    </div>
+                </h2>
+                <div class="ui large form" id="login-form">
+                    <div class="ui stacked purple segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="username" placeholder="Username" ng-model="username" code="13" press-enter="login(username,password)">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="Password" ng-model="password" code="13" press-enter="login(username,password)">
+                            </div>
+                        </div>
+                        <div class="ui fluid large purple submit button" ng-click="login(username,password)">Login</div>
+                    </div>
+                    <div class="ui error message"></div>
+                </div>
+                <div class="ui purple message">
+                    New to us? <a href="" id="signup">Sign Up</a>
+                </div>
+                <!-- END OF LOG IN -->
+
+                <!-- SIGN UP MODAL -->
+                <div id="signup-modal" class="ui small modal">
+                    <div class="ui purple header">Sign Up</div>
+                        <div class="content">
+                            <div class="ui large form" id="signup-form">
+                              <div class="ui stacked">
+                                <div class="field">
+                                  <div class="ui left icon input">
+                                    <i class="user icon"></i>
+                                    <input type="text" name="username" placeholder="Username" ng-model="new.username" code="13" press-enter="signup(new)">
+                                  </div>
+                                </div>
+                                <div class="field">
+                                  <div class="ui left icon input">
+                                    <i class="mail icon"></i>
+                                    <input type="text" name="email" placeholder="E-mail address" ng-model="new.email" code="13" press-enter="signup(new)">
+                                  </div>
+                                </div>
+                                <div class="field">
+                                  <div class="ui left icon input">
+                                    <i class="lock icon"></i>
+                                    <input type="password" name="password" placeholder="Password" ng-model="new.password" code="13" press-enter="signup(new)">
+                                  </div>
+                                </div>
+                                <div class="ui fluid large purple submit button" ng-click="signup(new)">Sign up for Pinggu</div>
+                              </div>
+
+                              <div class="ui error message"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OF SIGN UP MODAL -->
+            </div>
+            <!-- END OF LOG IN / SIGN UP -->
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="ui purple inverted vertical footer segment pingfoot">
+        <div class="ui container">
+            © 2016 Pinggu. All Rights Reserved
+        </div>
+    </div>
+    <!-- END OF FOOTER -->
+
+</div>
+
+<script type="text/javascript" src="/../assets/js/custom.js"></script>

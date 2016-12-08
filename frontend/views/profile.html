@@ -1,0 +1,353 @@
+<!-- NAVBAR -->
+<div class="ui attached stackable borderless menu">
+    <div class="ui container">
+        <div data-tooltip="Home" data-position="right center">
+            <a href="#/home">
+                <img class="ui small image" src="/../assets/img/logo.png">
+            </a>
+        </div>
+        <div class="right menu">
+            <div class="ui search item">
+                <div class="ui icon input" ng-controller="TweetController">
+                    <input class="prompt" type="text" placeholder="Search..." ng-model="searchbox" code="13" press-enter="search(searchbox)">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+            <div class="item">
+                <a href="#/profile" class="ui purple button">
+                    <i class="user icon"></i>
+                    <span class="text">Profile</span>
+                </a>
+            </div>
+            <div class="ui icon top right pointing dropdown purple button item">
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a href="#/home" class="item"><i class="home icon"></i>Home</a>
+                    <a class="item" ng-controller="UserController" ng-click="logout()"><i class="sign out icon"></i>Log Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END OF NAVBAR -->
+
+<!-- COMPOSE NEW PING -->
+<div id="ping" data-tooltip="Compose new Ping!" data-position="left center" style="z-index: 1;">
+    <button class="circular ui icon purple big button">
+        <i class="write icon"></i>
+    </button>
+</div>
+<div id="ping-modal" class="ui small modal" ng-controller="TweetController">
+    <div class="ui purple centered header">Compose new Ping!</div>
+    <div class="content">
+        <div class="ui grid">
+            <div class="ui form sixteen wide column">
+                <div class="field">
+                    <textarea name="pingtext" rows="3" ng-model="tweet.content"></textarea>
+                </div>
+                <div class="ui error message"></div>
+                <div class="ui purple submit button right floated" ng-click="add_tweet(tweet)" id="sub"><i class="write icon"></i>Ping!</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END OF COMPOSE NEW PING -->
+
+<!-- HEADER -->
+<div id = "profile-header" ng-controller="TweetController">
+    <div id = "header-img">
+        <div id = "name-container" class="ui attached segment">
+            <div id = "name-container" class="ui stackable five column grid">
+                <div class="column"></div>
+                <div id = "username" class="column">
+                    <h2>{{ user.name }}</h2>
+                    @{{ user.username }}
+                </div>
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="column"></div>
+            </div>
+        </div>
+        <img id = "profile-img" class="ui circular image" src="/../assets/img/Penguin-Icon.png"></img>
+    </div>
+</div>
+<!-- END OF HEADER -->
+
+<!-- TABS -->
+<div class="ui grid container">
+    <div class="four wide column">
+        <div class="ui vertical tabs secondary pointing large menu" ng-controller="TweetController">
+            <a class="purple item active" data-tab="pings" id="pings-p">
+                Pings
+                <div class="ui purple label">{{ ownTweets.length }}</div>
+            </a>
+            <a class="purple item" data-tab="followers" id="followers-p">
+                Followers
+                <div class="ui purple label">{{ followers.length }}</div>
+            </a>
+            <a class="purple item" data-tab="following" id="following-p">
+                Following
+                <div class="ui purple label">{{ following.length }}</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- TAB CONTENTS -->
+    <div class="twelve wide column" ng-controller="TweetController">
+        <!-- PINGS TAB -->
+        <div class="ui active tab" data-tab="pings" id="pings-tab">
+            <div class="ui link cards one doubling stackable">
+                <div class="ui card" id="cards" ng-repeat="ping in ownTweets | orderBy: '-timeCreated'">
+                    <div class="content" id="pings-btn" ng-click="getCurrentTweet(ping)" view-ping>
+                        <div class="header"> <!--image credits to: http://publicdomainvectors.org/es/vectoriales-gratuitas/Icono-del-ping%C3%BCino/44962.html -->
+                            <a href="#/profile" class="isblack">
+                                <img class="ui avatar small circular image" src="/../assets/img/Penguin-Icon.png"> {{ ping.authorName }}
+                            </a>
+                        </div>
+                        <div class="meta">@{{ ping.authorName }}</div>
+                        <div class="description">
+                            <p id="pingcontent">{{ ping.content }}</p>
+                        </div>
+                        <div class="meta right floated">
+                            <p>{{ ping.timeCreated }}</p>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <div class="ui three column compact grid">
+                            <div class="column left floated like">
+                                <i class="like icon" ng-hide="isLiked(ping)" ng-click="likeTweet(ping)"></i>
+                                <i class="like icon red" ng-show="isLiked(ping)" ng-click="unlikeTweet(ping)"></i>
+                                {{ ping.noOfLikes }}
+                            </div>
+                            <div class="column left floated">
+                                <a ng-click="getCurrentTweet(ping)" view-ping>
+                                    <i class="reply icon"></i>
+                                </a>
+                                {{ ping.noOfComments }}
+                            </div>
+                            <div class="ui dropdown column" dropdown-directive>
+                                <i class="ellipsis horizontal icon"></i>
+                                <div class="ui menu">
+                                    <div class="item" ng-click="getCurrentTweet(ping)" edit-ping>
+                                        <i class="edit icon"></i>
+                                        Edit Ping
+                                    </div>
+                                    <div class="item" ng-click="getCurrentTweet(ping)" delete-ping>
+                                        <i class="trash icon"></i>
+                                        Delete Ping
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END OF PINGS -->
+
+        <!-- PINGS MODAL-->
+        <div id="pings-modal" class="ui small modal">
+            <div class="content">
+                <div class="ui grid">
+                    <div class="two wide column">
+                        <a href="#/profile">
+                            <img class="ui avatar tiny circular image" src="/../assets/img/Penguin-Icon.png">
+                        </a>
+                    </div>
+                    <div class="fourteen wide column">
+                        <h2><a href="#/profile" class="isblack">{{ currentTweet.authorName }}</a></h2>
+                        <span class="meta">@{{ currentTweet.authorName }}</span>
+                    </div>
+                </div>
+                <div class="ui grid">
+                    <div class="column">
+                        <h3 id="pingconten">{{ currentTweet.content }}</h3>
+                    </div>
+                </div>
+                <div class="ui grid">
+                    <div class="column">
+                        <p>{{ currentTweet.timeCreated }}</p>
+                    </div>
+                </div>
+                <div class="ui three column relaxed grid">
+                    <div class="column">
+                        <a class="like">
+                            <i class="like icon" ng-hide="isLiked(currentTweet)" ng-click="likeTweet(currentTweet)"></i>
+                            <i class="like icon red" ng-show="isLiked(currentTweet)" ng-click="unlikeTweet(currentTweet)"></i>
+                        </a>
+                        {{ currentTweet.noOfLikes }} 
+                    </div>
+                    <div class="column">
+                        <a class="reply">
+                            <i class="reply icon"></i>
+                        </a>
+                        {{ comments.length }}
+                    </div>
+                    <div class="ui dropdown column" dropdown-directive>
+                        <i class="ellipsis horizontal icon"></i>
+                        <div class="ui menu">
+                            <div class="item" ng-click="getCurrentTweet(currentTweet)" edit-ping>
+                                <i class="edit icon"></i>
+                                Edit Ping
+                            </div>
+                            <div class="item" ng-click="getCurrentTweet(currentTweet)" delete-ping>
+                                <i class="trash icon"></i>
+                                Delete Ping
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui comments">
+                    <form class="ui reply form">
+                        <div class="field">
+                            <input type="text" name="reply" ng-model="contentComment"></input>
+                        </div>
+                        <div class="ui purple submit labeled icon button" ng-click="comment(contentComment)">
+                            <i class="icon edit"></i> Add Comment
+                        </div>
+                    </form>
+                    <div class="comment" ng-repeat="c in comments | orderBy: '-timeCreated'">
+                        <a class="avatar tiny circular image ui">
+                          <img src="/../assets/img/Penguin-Icon.png">
+                        </a>
+                        <div class="content">
+                            <a class="author">{{ c.accountName }}</a>
+                            <div class="metadata">
+                                <div class="date">{{ c.timeCreated }}</div>
+                            </div>
+                            <div class="text">
+                                <p>{{ c.contentComment }}</p>
+                            </div>
+                            <div class="actions">
+                                <a class="like" ng-hide="isLikedComment(c)" ng-click="likeComment(c)"><i class="like icon"></i>Like</a>
+                                <a class="like red" ng-show="isLikedComment(c)" ng-click="unlikeComment(c)"><i class="like icon"></i>Unlike</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END OF PINGS MODAL-->
+
+        <!-- EDIT MODAL-->
+        <div id="edit-modal" class="ui small modal">
+            <div class="content">
+                <div class="ui grid">
+                    <div class="two wide column">
+                        <a href="#/profile">
+                            <img class="ui avatar tiny circular image" src="/../assets/img/Penguin-Icon.png">
+                        </a>
+                    </div>
+                    <div class="fourteen wide column">
+                        <h2><a href="#/profile" class="isblack">{{ currentTweet.authorName }}</a></h2>
+                        <a class="meta" href="#/profile">@{{ currentTweet.authorName }}</a>
+                    </div>
+                </div>
+                <div class="ui grid">
+                    <form class="ui form sixteen wide column">
+                        <div class="field">
+                            <textarea name="pingtext" rows="3" ng-model="currentTweet.content" id="edit-ping"></textarea>
+                        </div>
+                        <div class="ui circular label" id="charcount-edit"></div>
+                        <div class="ui purple submit button right floated" ng-click="update_tweet(currentTweet)" id="edit"><i class="edit icon"></i>Edit Ping!</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END OF EDIT MODAL-->
+
+        <!-- DELETE MODAL -->
+        <div id="del-modal" class="ui basic small modal">
+            <div class="ui icon header">
+                <i class="trash icon"></i>
+                Delete Ping
+            </div>
+            <div class="content">
+                <h2 id="del-prompt">Are you sure you want to delete this Ping?</h2>
+            </div>
+            <div class="actions">
+                <div class="ui ok purple inverted button" ng-click="delete_tweet(currentTweet.tweetId)">
+                    <i class="checkmark icon"></i>
+                    Yes
+                </div>
+                <div class="ui cancel red basic inverted button right floated">
+                    <i class="remove icon"></i>
+                    No
+                </div>
+            </div>
+        </div>
+        <!-- END OF DELETE MODAL-->
+
+        <!-- FOLLOWERS TAB -->
+        <div class="ui tab" data-tab="followers" id="followers-tab">
+            <div class="ui special cards four doubling stackable">
+                <div class="card" ng-repeat="a in followers">
+                    <div class="blurring dimmable image" dimmer-directive>
+                        <div class="ui dimmer">
+                            <div class="content">
+                                <div class="center">
+                                    <!-- <div id="unfollow" class="ui purple inverted button ui animated fade button ui button" tabindex="0">
+                                        <div class="visible content"><i class="checkmark icon"></i>Following</div>
+                                        <div class="hidden content">
+                                            <i class="remove user icon"></i>
+                                            Unfollow
+                                        </div>
+                                    </div> -->
+                                    <div id="follow" class="ui purple inverted button ui animated fade button ui button" tabindex="0">
+                                        <div class="visible content"><i class="add user icon"></i>Follow</div>
+                                        <div class="hidden content">
+                                            <i class="add user icon"></i>
+                                            Follow
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="/../assets/img/Penguin-Icon.png">
+                    </div>
+                    <div class="content">
+                        <a class="header">{{ a.follower }}</a>
+                        <div class="meta">@{{ a.follower }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END OF FOLLOWERS -->
+
+        <!-- FOLLOWING TAB -->
+        <div class="ui tab" data-tab="following" id="following-tab">
+            <div class="ui special cards four doubling stackable">
+                <div class="card" ng-repeat="b in following">
+                    <div class="blurring dimmable image" dimmer-directive>
+                        <div class="ui dimmer">
+                            <div class="content">
+                                <div class="center">
+                                    <div id="unfollow" class="ui purple inverted button ui animated fade button ui button" tabindex="0" ng-click="unfollow(b.followId)">
+                                        <div class="visible content"><i class="checkmark icon"></i>Following</div>
+                                        <div class="hidden content">
+                                            <i class="remove user icon"></i>
+                                            Unfollow
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="/../assets/img/Penguin-Icon.png">
+                    </div>
+                    <div class="content">
+                        <a class="header">{{ b.following }}</a>
+                        <div class="meta">@{{ b.following }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END OF FOLLOWING -->
+
+    </div>
+    <!-- END OF TAB CONTENTS -->
+</div>
+<!-- END OF TABS -->
+
+<script type="text/javascript" src="/../assets/js/custom.js"></script>

@@ -1,0 +1,98 @@
+<!-- NAVBAR -->
+<div class="ui attached stackable borderless menu">
+    <div class="ui container">
+        <div data-tooltip="Home" data-position="right center">
+            <a href="#/home">
+                <img class="ui small image" src="/../assets/img/logo.png">
+            </a>
+        </div>
+        <div class="right menu">
+            <div class="item">
+                <a href="#/profile" class="ui purple button">
+                    <i class="user icon"></i>
+                    <span class="text">Profile</span>
+                </a>
+            </div>
+            <div class="ui icon top right pointing dropdown purple button item">
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a href="#/home" class="item"><i class="home icon"></i>Home</a>
+                    <a class="item" ng-controller="UserController" ng-click="logout()"><i class="sign out icon"></i>Log Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END OF NAVBAR -->
+
+<!-- COMPOSE NEW PING -->
+<div id="ping" data-tooltip="Compose new Ping!" data-position="left center" style="z-index: 1;">
+    <button class="circular ui icon purple big button">
+        <i class="write icon"></i>
+    </button>
+</div>
+<div id="ping-modal" class="ui small modal" ng-controller="TweetController">
+    <div class="ui purple centered header">Compose new Ping!</div>
+    <div class="content">
+        <div class="ui grid">
+            <div class="ui form sixteen wide column">
+                <div class="field">
+                    <textarea name="pingtext" rows="3" ng-model="tweet.content" id="compose-ping"></textarea>
+                </div>
+                <div class="ui circular label" id="charcount">140</div>
+                <div class="ui purple submit button right floated" ng-click="add_tweet(tweet)" id="sub"><i class="write icon"></i>Ping!</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END OF COMPOSE NEW PING -->
+
+<div class="ui grid container" style="margin-top: 4%;" ng-controller="TweetController">
+    <div class="ui sixteen wide column">
+        <h2>Search results...</h2>
+    </div>
+    <div class="ui sixteen wide column">
+        <div class="ui search item">
+            <div class="ui icon input">
+                <input class="prompt" type="text" placeholder="Search..." ng-model="searchUser.name">
+                <i class="search icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="ui sixteen wide column">
+        <div class="ui special cards five doubling stackable" ng-show="searchUser.name.length" ng-hide="!searchUser.name.length">
+            <div class="card" ng-repeat="a in otherUsers | filter: searchUser">
+                <div class="blurring dimmable image" dimmer-directive>
+                    <div class="ui dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <!-- <div id="unfollow" class="ui purple inverted button ui animated fade button ui button" tabindex="0">
+                                    <div class="visible content"><i class="checkmark icon"></i>Following</div>
+                                    <div class="hidden content">
+                                        <i class="remove user icon"></i>
+                                        Unfollow
+                                    </div>
+                                </div> -->
+                                <div id="follow" class="ui purple inverted button ui animated fade button ui button" tabindex="0">
+                                    <div class="visible content"><i class="add user icon"></i>Follow</div>
+                                    <div class="hidden content">
+                                        <i class="add user icon"></i>
+                                        Follow
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="/../assets/img/Penguin-Icon.png">
+                </div>
+                <div class="content">
+                    <a class="header" ng-click="goToProfile(a.username)">{{ a.name }}</a>
+                    <div class="meta">@{{ a.username }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/../assets/js/custom.js"></script>

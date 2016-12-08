@@ -1,0 +1,90 @@
+#ping {
+    position: fixed;
+    bottom: 2em;
+    right: 2em;
+}
+
+#profile-header{
+    height: 400px;
+}
+
+#header-img{
+    width: 100%;
+    height: 300px;
+    background-image: url('/../assets/img/header.jpg');
+    background-size: 100% 100%;
+}
+
+#profile-img{
+    width: 200px;
+    height: 200px;
+    border: 5px solid white;
+    top: 105px;
+    left: 50px;
+}
+
+#name-container{
+    top: 300px;
+    height: 80px;
+}
+
+#username{
+    color: gray;
+}
+
+h2{
+    color: black;
+}
+
+h3{
+    color: black;
+}
+
+.isblack {
+    color: black;
+}
+
+.isblack:hover {
+    color: purple;
+}
+
+#profile-items{
+    text-align: center;
+    font-size: 15px;
+}
+
+#friend{
+    width: 100px;
+    height: 100px;
+     border: 5px solid white;
+}
+
+body {
+    background-color: #f3e5f5;
+}
+#col {
+    max-width: 400px;
+}
+
+.pingall {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-image: url('/../assets/img/pinghome6.jpg');
+    background-size: 100% 100%;
+}
+.pingmain {
+    flex: 1 0 auto;
+}
+
+#del-prompt {
+    color: #fff;
+}
+
+#cards:hover {
+    background-color: #F5EEF8;
+}
+
+#pingcontent {
+    word-wrap: break-word;
+}

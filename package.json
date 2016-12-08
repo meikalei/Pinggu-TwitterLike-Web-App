@@ -1,0 +1,27 @@
+{
+  "name": "cmsc100",
+  "version": "1.0.0",
+  "description": "project",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/nodemon/bin/nodemon.js backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arriola, Dane, Plata, Quilang",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "express": "^4.14.0",
+    "express-jwt": "^5.1.0",
+    "jsonwebtoken": "^7.1.9",
+    "method-override": "^2.3.6",
+    "moment": "^2.17.1",
+    "mysql": "^2.11.1",
+    "redis": "^2.6.3",
+    "semantic-ui": "^2.2.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.10.2"
+  }
+}
